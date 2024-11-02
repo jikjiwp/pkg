@@ -21,16 +21,9 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/all-in-one-wp-migration.7.87.zip
-      expected-sha256: cddd9a54b5a1b91907f7e0d641ee21b4c6b55c3177cff13af7d3bd09caedfddf
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip all-in-one-wp-migration.7.87.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      slug: all-in-one-wp-migration
+      sha256: cddd9a54b5a1b91907f7e0d641ee21b4c6b55c3177cff13af7d3bd09caedfddf

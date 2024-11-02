@@ -21,16 +21,9 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/indexnow.zip
-      expected-sha256: a250c074a0dbdc765cd73a1c77b06b9f9fd896e260ccb19effd9dd568b2b238b
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip indexnow.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      slug: indexnow
+      sha256: a250c074a0dbdc765cd73a1c77b06b9f9fd896e260ccb19effd9dd568b2b238b

@@ -21,16 +21,10 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
+
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/duplicate-post.4.5.zip
-      expected-sha256: a32d701644bc5ef0ac50047fcbb8b1c1ab9289d6531dfe986d6574f00d16b921
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip duplicate-post.4.5.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      slug: duplicate-post
+      sha256: a32d701644bc5ef0ac50047fcbb8b1c1ab9289d6531dfe986d6574f00d16b921

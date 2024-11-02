@@ -21,16 +21,9 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/redirection.5.5.0.zip
-      expected-sha256: 816f577d8a6ead1473c00225122cf51de4b9a13e54b0275eb8862dea39c157b0
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip redirection.5.5.0.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      slug: redirection
+      sha256: 816f577d8a6ead1473c00225122cf51de4b9a13e54b0275eb8862dea39c157b0

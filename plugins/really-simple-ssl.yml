@@ -21,16 +21,9 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/really-simple-ssl.9.1.0.zip
-      expected-sha256: ccf61a35aae75b8603295caa3e5dcd6eb95fd0f972f96725760b797eedcddb58
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip really-simple-ssl.9.1.0.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      slug: really-simple-ssl
+      sha256: ccf61a35aae75b8603295caa3e5dcd6eb95fd0f972f96725760b797eedcddb58

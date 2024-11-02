@@ -2,7 +2,7 @@ package:
   name: wp-google-site-kit
   version: 1.138.0
   epoch: 0
-  description: "Site Kit by Google &#8211; Analytics, Search Console, AdSense, Speed"
+  description: "Site Kit by Google – Analytics, Search Console, AdSense, Speed"
   target-architecture:
     - aarch64
     - x86_64
@@ -21,16 +21,9 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/google-site-kit.1.138.0.zip
-      expected-sha256: 9473b22f9bf3fbd41ce7fc751e3234da9d102b075379749cc9feebcd8397ae39
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip google-site-kit.1.138.0.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      slug: google-site-kit
+      sha256: 9473b22f9bf3fbd41ce7fc751e3234da9d102b075379749cc9feebcd8397ae39

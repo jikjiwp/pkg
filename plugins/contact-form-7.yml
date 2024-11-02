@@ -21,16 +21,9 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/contact-form-7.5.9.8.zip
-      expected-sha256: 357b13dab0e2b9996444664c95bd7ee7ca49fb18aced65db4c40c747543afcf4
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip contact-form-7.5.9.8.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      slug: contact-form-7
+      sha256: 357b13dab0e2b9996444664c95bd7ee7ca49fb18aced65db4c40c747543afcf4

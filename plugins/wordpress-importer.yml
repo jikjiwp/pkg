@@ -21,16 +21,9 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/wordpress-importer.0.8.3.zip
-      expected-sha256: db1a86f85dc59ff83f3d75aa585f4cc04827aca712ba06ac1f20a017be2165d7
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip wordpress-importer.0.8.3.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      uri: wordpress-importer
+      sha256: db1a86f85dc59ff83f3d75aa585f4cc04827aca712ba06ac1f20a017be2165d7

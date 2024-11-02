@@ -21,16 +21,9 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/easy-wp-smtp.2.6.0.zip
-      expected-sha256: 05c6d08add96c88a6205c9f32b39f45027ff17fa120fecc9c332ffa3c9ac7ef5
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip easy-wp-smtp.2.6.0.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      slug: easy-wp-smtp
+      sha256: 05c6d08add96c88a6205c9f32b39f45027ff17fa120fecc9c332ffa3c9ac7ef5

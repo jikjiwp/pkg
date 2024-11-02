@@ -21,16 +21,10 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/theme/twentytwentyfour.${{package.version}}.zip
-      expected-sha256: 6c62a003877a25869fb46231826695d76aa9d99970cc4dc3362b91ae2254f3d7
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/themes/
-      unzip twentytwentyfour.${{package.version}}.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/themes/
+      slug: twentytwentyfour
+      type: theme
+      sha256: 6c62a003877a25869fb46231826695d76aa9d99970cc4dc3362b91ae2254f3d7

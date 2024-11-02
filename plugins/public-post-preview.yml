@@ -21,16 +21,9 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/public-post-preview.2.10.0.zip
-      expected-sha256: 97cfc28e0f1a0cc1f44baffb52fbae7b777824cea5a01d58a95f66e40d1f3fb6
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip public-post-preview.2.10.0.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      slug: public-post-preview
+      sha256: 97cfc28e0f1a0cc1f44baffb52fbae7b777824cea5a01d58a95f66e40d1f3fb6

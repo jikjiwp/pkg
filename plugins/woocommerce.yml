@@ -21,16 +21,9 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/woocommerce.9.3.3.zip
-      expected-sha256: a5f5ee58d239b9d170f6e6bfcbc29ae9c19d0298429ce73a8275f74e95524295
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip woocommerce.9.3.3.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      slug: woocommerce
+      sha256: a5f5ee58d239b9d170f6e6bfcbc29ae9c19d0298429ce73a8275f74e95524295

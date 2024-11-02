@@ -21,16 +21,9 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/classic-editor.1.6.5.zip
-      expected-sha256: 3144da2236c6017ba1b7431363317d8db5bc541dd3c729c0aa1f597093723078
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip classic-editor.1.6.5.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      slug: classic-editor
+      sha256: 3144da2236c6017ba1b7431363317d8db5bc541dd3c729c0aa1f597093723078

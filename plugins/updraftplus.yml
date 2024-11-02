@@ -2,7 +2,7 @@ package:
   name: wp-updraftplus
   version: 1.24.6
   epoch: 0
-  description: "UpdraftPlus: WP Backup &amp; Migration Plugin"
+  description: "UpdraftPlus: WP Backup & Migration Plugin"
   target-architecture:
     - aarch64
     - x86_64
@@ -21,16 +21,9 @@ environment:
       - https://packages.wolfi.dev/os
     keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
-    packages:
-      - busybox
-      - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/updraftplus.1.24.6.zip
-      expected-sha256: 6af7ed8c4981090a7274fbbd9d9eb26c83daa5f04a8f197f82b9a2fcfc64ee4e
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip updraftplus.1.24.6.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      slug: updraftplus
+      sha256: 6af7ed8c4981090a7274fbbd9d9eb26c83daa5f04a8f197f82b9a2fcfc64ee4e
