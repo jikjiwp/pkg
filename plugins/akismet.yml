@@ -26,11 +26,16 @@ environment:
       - unzip
 
 pipeline:
-  - uses: fetch
+  - uses: wporg
     with:
-      uri: https://downloads.wordpress.org/plugin/akismet.5.3.3.zip
+      slug: akismet
       expected-sha256: e39147da6f75b11e2bcd3a23ab6512dc0f1d1715cc6b25d4b0f876cd88f9851a
-      extract: false
-  - runs: |
-      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
-      unzip akismet.5.3.3.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+# pipeline:
+#   - uses: fetch
+#     with:
+#       uri: https://downloads.wordpress.org/plugin/akismet.5.3.3.zip
+#       expected-sha256: e39147da6f75b11e2bcd3a23ab6512dc0f1d1715cc6b25d4b0f876cd88f9851a
+#       extract: false
+#   - runs: |
+#       mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+#       unzip akismet.5.3.3.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
