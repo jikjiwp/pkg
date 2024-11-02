@@ -1,0 +1,35 @@
+package:
+  name: wp-cli
+  version: 2.11.0
+  epoch: 0
+  description: "The command line interface for WordPress"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - license: GPL-2.0-only
+  dependencies:
+    runtime:
+      - php
+      - php-phar
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - ca-certificates-bundle
+    
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://github.com/wp-cli/wp-cli/releases/download/v${{package.version}}/wp-cli-${{package.version}}.phar
+      expected-sha256: a39021ac809530ea607580dbf93afbc46ba02f86b6cffd03de4b126ca53079f6
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/bin
+      mv wp-cli-${{package.version}}.phar ${{targets.destdir}}/usr/bin/wp
+      chmod +x ${{targets.destdir}}/usr/bin/wp

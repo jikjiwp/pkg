@@ -1,0 +1,36 @@
+package:
+  name: wp-all-in-one-seo-pack
+  version: 4.7.3.1
+  epoch: 0
+  description: "All in One SEO – Powerful SEO Plugin to Boost SEO Rankings &amp; Increase Traffic"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/all-in-one-seo-pack.zip
+      expected-sha256: 116d1c9490ec5c49855a51314468d4d50db682331ee469ad0a2fb67b6d324050
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip all-in-one-seo-pack.4.7.3.1.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

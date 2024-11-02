@@ -1,0 +1,37 @@
+package:
+  name: wp-sqlite-database-integration
+  version: 2.1.15
+  epoch: 0
+  description: "SQLite Database Integration"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/sqlite-database-integration.${{package.version}}.zip
+      expected-sha256: 88d9dc5d6d93f0e7057e0db3de30a30492f22134f4c0af5b9b0fa7d482814e10
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip sqlite-database-integration.${{package.version}}.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      cp ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/sqlite-database-integration/db.copy ${{targets.destdir}}/usr/src/wordpress/wp-content/db.php

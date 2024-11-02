@@ -1,0 +1,31 @@
+package:
+  name: wordpress-recommended
+  version: 6.6.2
+  epoch: 0
+  description: "Recommended additional PHP extensions and configurations for WordPress"
+  target-architecture:
+    - aarch64
+    - x86_64
+  options:
+    no-provides: true
+  copyright:
+    - license: GPL-2.0-only
+  dependencies:
+    runtime:
+      - curl
+      - ghostscript
+      - libavif
+      - libwebp
+      - openssl
+      - php-apcu
+      - php-curl
+      - php-dom
+      - php-exif
+      - php-fileinfo
+      - php-igbinary
+      - php-imagick
+      - php-intl
+      - php-mbstring
+      - php-openssl
+      - php-opcache
+      - php-xml

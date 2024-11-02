@@ -1,0 +1,36 @@
+package:
+  name: wp-theme-plane-wpcom
+  version: 1.0.1
+  epoch: 0
+  description: "Plane"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://public-api.wordpress.com/rest/v1/themes/download/plane.zip
+      expected-sha256: b9b169ca86a7a359fdff56849a81ffad746881a564afa9c07c8f3c64cb28b67c
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/themes/
+      unzip plane.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/themes/

@@ -1,0 +1,36 @@
+package:
+  name: wp-bunnycdn
+  version: 2.2.22
+  epoch: 0
+  description: "bunny.net &#8211; WordPress CDN Plugin"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/bunnycdn.2.2.22.zip
+      expected-sha256: eb02f5df763f677361b8d690284ba8f941d9a34541725e4bad7396b4d9064733
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip bunnycdn.2.2.22.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

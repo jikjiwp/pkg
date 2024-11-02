@@ -1,0 +1,36 @@
+package:
+  name: wp-wp-mail-smtp
+  version: 4.1.1
+  epoch: 0
+  description: "WP Mail SMTP by WPForms &#8211; The Most Popular SMTP and Email Log Plugin"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/wp-mail-smtp.4.1.1.zip
+      expected-sha256: ca43ffd684bc7b3ceac8d5e967675e93024c3c010dc2767671123dc651c6a1be
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip wp-mail-smtp.4.1.1.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

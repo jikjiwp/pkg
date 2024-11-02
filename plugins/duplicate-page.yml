@@ -1,0 +1,36 @@
+package:
+  name: wp-duplicate-page
+  version: 4.5.4
+  epoch: 0
+  description: "Duplicate Page"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/duplicate-page.zip
+      expected-sha256: 72976e76d1259118e7cd186f672056fe31087469083ab1b4c1123129395e170b
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip duplicate-page.4.5.4.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

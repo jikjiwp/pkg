@@ -1,0 +1,33 @@
+{
+	auto_https off
+	http_port 80
+}
+:80 {
+	root * /usr/src/wordpress
+	log
+	encode gzip
+	@canonicalPath {
+		file {
+			try_files {path}/index.php
+		}
+		not {
+			path */
+		}
+	}
+	@phpFiles {
+		path *.php
+	}
+	route {
+		redir @canonicalPath {path}/ 308
+		try_files {path} {path}/index.php index.php
+		reverse_proxy @phpFiles {
+			to 127.0.0.1:9000
+			transport fastcgi {
+				split .php
+				root /usr/src/wordpress
+			}
+		}
+		respond /uploads/*.php 404
+		file_server
+	}
+}

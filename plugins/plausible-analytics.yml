@@ -1,0 +1,36 @@
+package:
+  name: wp-plausible-analytics
+  version: 2.1.4
+  epoch: 0
+  description: "Plausible Analytics"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/plausible-analytics.2.1.4.zip
+      expected-sha256: 31a4975e7cb03bb028959b1b2a5d59a8506c870b3bcce690216385f8e2c86f14
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip plausible-analytics.2.1.4.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

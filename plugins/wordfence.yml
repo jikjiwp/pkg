@@ -1,0 +1,36 @@
+package:
+  name: wp-wordfence
+  version: 7.11.7
+  epoch: 0
+  description: "Wordfence Security &#8211; Firewall, Malware Scan, and Login Security"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/wordfence.7.11.7.zip
+      expected-sha256: 72ef72220d95f5ddcfdc6e2c1db2a85c4bb82746dd67a9dd6f46fca3d0792027
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip wordfence.7.11.7.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

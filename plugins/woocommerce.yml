@@ -1,0 +1,36 @@
+package:
+  name: wp-woocommerce
+  version: 9.3.3
+  epoch: 0
+  description: "WooCommerce"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/woocommerce.9.3.3.zip
+      expected-sha256: a5f5ee58d239b9d170f6e6bfcbc29ae9c19d0298429ce73a8275f74e95524295
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip woocommerce.9.3.3.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

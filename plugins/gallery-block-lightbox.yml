@@ -1,0 +1,36 @@
+package:
+  name: wp-gallery-block-lightbox
+  version: 1.15
+  epoch: 0
+  description: "Lightbox for Gallery &amp; Image Block"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/gallery-block-lightbox.zip
+      expected-sha256: b1cd974ec5e911a39fc8cbb8ad0d1bdbbab15bdd31541f7021b1c648f8e02009
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip gallery-block-lightbox.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

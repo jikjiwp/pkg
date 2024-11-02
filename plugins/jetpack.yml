@@ -1,0 +1,36 @@
+package:
+  name: wp-jetpack
+  version: 13.9.1
+  epoch: 0
+  description: "Jetpack &#8211; WP Security, Backup, Speed, &amp; Growth"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/jetpack.13.9.1.zip
+      expected-sha256: 0ecad8d0910ec225003ba6c89084fa23ab5767795bf0979a2785e85f2c961ace
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip jetpack.13.9.1.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

@@ -1,0 +1,36 @@
+package:
+  name: wp-enlighter
+  version: 4.6.1
+  epoch: 0
+  description: "Enlighter &#8211; Customizable Syntax Highlighter"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/enlighter.4.6.1.zip
+      expected-sha256: fdd3cb4a924a1b3abbb15c9f4d9d4b266d915af2b1af2d31c8333aeb044cef4b
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip enlighter.4.6.1.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

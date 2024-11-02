@@ -1,0 +1,36 @@
+package:
+  name: wp-wordpress-seo
+  version: 23.7
+  epoch: 0
+  description: "Yoast SEO"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/wordpress-seo.23.7.zip
+      expected-sha256: c58add69abcab049cb643dc9d4cec5e04489382de4d902500dbefd3b6a29a96d
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip wordpress-seo.23.7.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

@@ -1,0 +1,36 @@
+package:
+  name: wp-indexnow
+  version: 1.0.3
+  epoch: 0
+  description: "IndexNow Plugin"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/indexnow.zip
+      expected-sha256: a250c074a0dbdc765cd73a1c77b06b9f9fd896e260ccb19effd9dd568b2b238b
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip indexnow.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

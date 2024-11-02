@@ -1,0 +1,36 @@
+package:
+  name: wp-akismet
+  version: 5.3.3
+  epoch: 0
+  description: "Akismet Anti-spam: Spam Protection"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/akismet.5.3.3.zip
+      expected-sha256: e39147da6f75b11e2bcd3a23ab6512dc0f1d1715cc6b25d4b0f876cd88f9851a
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip akismet.5.3.3.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

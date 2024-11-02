@@ -1,0 +1,36 @@
+package:
+  name: wp-google-analytics-for-wordpress
+  version: 9.2.0
+  epoch: 0
+  description: "MonsterInsights &#8211; Google Analytics Dashboard for WordPress (Website Stats Made Easy)"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/google-analytics-for-wordpress.9.2.0.zip
+      expected-sha256: 6c5e892872d88159d66a6e7384b392d3e270b3ac24c9ad3f8158ca60d20d147a
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip google-analytics-for-wordpress.9.2.0.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

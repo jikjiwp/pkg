@@ -1,0 +1,27 @@
+package:
+  name: jikji-conf
+  version: 0.1.0
+  epoch: 0
+  description: "Jikji recommended configuration for WordPress containers"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - license: GPL-2.0-only
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - ca-certificates-bundle
+    
+pipeline:
+  - runs: |
+      mkdir -p ${{targets.destdir}}/etc/cron.d
+      install -m644 -D "build-aux/jikji-conf/wp-cron" "${{targets.destdir}}/etc/cron.d/"
+      mkdir -p "${{targets.destdir}}/etc/caddy/"
+      install -m644 -D "./build-aux/jikji-conf/Caddyfile" "${{targets.destdir}}/etc/caddy/Caddyfile.jikji"

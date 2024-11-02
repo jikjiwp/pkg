@@ -1,0 +1,36 @@
+package:
+  name: wp-two-factor
+  version: 0.9.1
+  epoch: 0
+  description: "Two-Factor"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/two-factor.0.9.1.zip
+      expected-sha256: ebe02c4bb1a910c93539419b796ccd6bde2176c0ca11b061c17bac4fdef65933
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip two-factor.0.9.1.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

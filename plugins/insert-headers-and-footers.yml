@@ -1,0 +1,36 @@
+package:
+  name: wp-insert-headers-and-footers
+  version: 2.2.2
+  epoch: 0
+  description: "WPCode &#8211; Insert Headers and Footers + Custom Code Snippets &#8211; WordPress Code Manager"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/insert-headers-and-footers.2.2.2.zip
+      expected-sha256: 78a00cf800196b7a03599bfd8c49337a34916a09e570fd89b4c0ee82108d8f15
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip insert-headers-and-footers.2.2.2.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

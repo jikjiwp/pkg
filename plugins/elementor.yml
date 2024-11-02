@@ -1,0 +1,36 @@
+package:
+  name: wp-elementor
+  version: 3.24.7
+  epoch: 0
+  description: "Elementor Website Builder &#8211; More than Just a Page Builder"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/elementor.3.24.7.zip
+      expected-sha256: c231173a6cef8ae6be76b23c4382d7eeb46e5ff4c38f8382d2abb52c1cb38885
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip elementor.3.24.7.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

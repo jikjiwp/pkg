@@ -1,0 +1,36 @@
+package:
+  name: wp-litespeed-cache
+  version: 6.5.2
+  epoch: 0
+  description: "LiteSpeed Cache"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/litespeed-cache.6.5.2.zip
+      expected-sha256: 64509d0a13072f8aea30efd83681b516ba70c05b4e187fa99533b8904cc9cd3f
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip litespeed-cache.6.5.2.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

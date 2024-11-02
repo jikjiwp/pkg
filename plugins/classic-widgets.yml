@@ -1,0 +1,36 @@
+package:
+  name: wp-classic-widgets
+  version: 0.3
+  epoch: 0
+  description: "Classic Widgets"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/classic-widgets.0.3.zip
+      expected-sha256: 1729916d7794fbe9db38a43490e151cbf80d7c4b9dc7b0ccdee674b02b33aafb
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip classic-widgets.0.3.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

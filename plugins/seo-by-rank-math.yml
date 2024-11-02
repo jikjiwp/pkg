@@ -1,0 +1,36 @@
+package:
+  name: wp-seo-by-rank-math
+  version: 1.0.230
+  epoch: 0
+  description: "Rank Math SEO – AI SEO Tools to Dominate SEO Rankings"
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - paths:
+      - "*"
+      attestation: TODO
+      license: TODO
+  dependencies:
+    runtime:
+      - wordpress
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - unzip
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://downloads.wordpress.org/plugin/seo-by-rank-math.1.0.230.zip
+      expected-sha256: 98d7e65ea059477b93a9f944673bc0bec8c9012b4b8ae235b89fd1175d77c8e3
+      extract: false
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/
+      unzip seo-by-rank-math.1.0.230.zip -d ${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/

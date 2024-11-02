@@ -1,0 +1,42 @@
+package:
+  name: wordpress
+  version: 6.6.2
+  epoch: 0
+  description: "The Open Source Publishing Platform"
+  url: https://wordpress.org
+  target-architecture:
+    - aarch64
+    - x86_64
+  copyright:
+    - license: GPL-2.0-only
+  dependencies:
+    runtime:
+      - php-fpm
+      - php-mysqli
+      - php-mysqlnd
+
+environment:
+  contents:
+    repositories:
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - busybox
+      - ca-certificates-bundle
+      - git
+
+pipeline:
+  - uses: git-checkout
+    with:
+      repository: https://github.com/wordpress/wordpress
+      tag: ${{package.version}}
+      expected-commit: 00a39b7510b97b76c86768b0c0ba4ecb9797534b
+      destination: "${{targets.destdir}}/usr/src/wordpress"
+  - runs: |
+      cp build-aux/wordpress/wp-config.php "${{targets.destdir}}/usr/src/wordpress"
+      mkdir -p "${{targets.destdir}}/usr/src/wordpress/wp-config.d"
+      rm -rf "${{targets.destdir}}/usr/src/wordpress/wp-content/themes/"
+      mkdir -p "${{targets.destdir}}/usr/src/wordpress/wp-content/themes"
+      cp "${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/index.php" "${{targets.destdir}}/usr/src/wordpress/wp-content/themes/"
+      rm "${{targets.destdir}}/usr/src/wordpress/wp-content/plugins/hello.php"
