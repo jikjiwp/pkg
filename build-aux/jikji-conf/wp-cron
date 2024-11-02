@@ -1,1 +1,1 @@
-*/5 * * * * cd /usr/src/wordpress; /usr/bin/wp cron event run
+*/5 * * * * cd /usr/src/wordpress; /usr/bin/wp cron event run --due-now
